@@ -39,12 +39,17 @@ public class Logic {
 
         Random rn = new Random();
 
-        LinkedList<Kort> tempInsert = new LinkedList<>();
         for (int i = 0; i < 7; i++) {
-            tempInsert.add(deck.get(rn.nextInt(52)));
+            LinkedList<Kort> tempInsert = new LinkedList<>();
+            int tempValue = rn.nextInt(52);
+            tempInsert.add(deck.get(tempValue));
+            buildStuff.add(i,tempInsert);
         }
-        for (int i = 0; i < tempInsert.size(); i++) {
-            System.out.println(tempInsert.get(i).getType() + tempInsert.get(i).getNumber());
+        System.out.println(buildStuff.size());
+
+
+        for (int i = 0; i < buildStuff.size(); i++) {
+            System.out.println(buildStuff.get(i).get(0).getType() + buildStuff.get(i).get(0).getNumber());
         }
 
 
