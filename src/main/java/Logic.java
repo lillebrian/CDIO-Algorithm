@@ -4,6 +4,8 @@ import java.util.*;
 public class Logic {
     public Logic() {
         initialisereKort();
+        splitDeck();
+        simulateGame();
         algo();
     }
 
@@ -34,10 +36,32 @@ public class Logic {
     ArrayList<Kort> talon = new ArrayList<>();
     ArrayList<Kort> splitInBlack = new ArrayList<>();
     ArrayList<Kort> splitInRed = new ArrayList<>();
+    boolean validMove = true;
+    ArrayList<Kort> legalMoves = new ArrayList<>();
 
     Stack<String> test = new Stack<>();
 
     public void algo() {
+        //Iterate through all indexes in buildStuff
+        for (int i = 0; i < 7; i++) {
+            //Iterate to compare all other values with the value at i
+            for (int j = 0; j < buildStuff.size(); j++) {
+                //Cards we use to compare with each other
+                Kort comparisonWith = buildStuff.get(i).get(0);
+                Kort compareTo = buildStuff.get(j).get(0);
+
+
+                //First subtract the 2 values from each other to check if the value is 1 since then it's a legal move
+                int compareValues = Integer.parseInt(comparisonWith.getNumber()) - Integer.parseInt(compareTo.getNumber());
+                //We gotta make sure that the colors aren't the same so that we have Heart 
+                if(!containsName(splitInRed, comparisonWith.getType()) && containsName(splitInRed, compareTo.getType()) && compareValues == 1) {
+                    System.out.println("Hej jan " + comparisonWith.getType() + comparisonWith.getNumber() + " og den anden " + compareTo.getType() + compareTo.getNumber());
+                }
+                if(containsName(splitInRed, comparisonWith.getType()) && !containsName(splitInRed, compareTo.getType()) && compareValues == 1) {
+                    System.out.println("Hej jan2 " + comparisonWith.getType() + comparisonWith.getNumber() + " og den anden " + compareTo.getType() + compareTo.getNumber());
+                }
+            }
+        }
 
     }
 
@@ -73,6 +97,18 @@ public class Logic {
             deck.remove(tempValue);
         }
 
+        for (LinkedList<Kort> k : buildStuff) {
+            System.out.println("Alt i buildStuff " + k.get(0).getType() + "" + k.get(0).getNumber());
+
+        }
+
+    }
+
+
+
+
+    public boolean containsName(final List<Kort> list, final String name){
+        return list.stream().anyMatch(o -> o.getType().equals(name));
     }
 
 }
