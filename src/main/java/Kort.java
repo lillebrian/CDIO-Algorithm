@@ -14,7 +14,7 @@ class Kort {
     String number;
     String type;
     ArrayList<String> typer = new ArrayList<>(Arrays.asList("C", "D", "H", "S"));
-    ArrayList<String> numre = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","J","D","K"));
+    ArrayList<String> numre = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","J","Q","K"));
 
     public Kort(int type, int number) {
         this.type = typer.get(type);
