@@ -44,9 +44,10 @@ public class Logic {
             LinkedList<Kort> tempInsert = new LinkedList<>();
             int tempValue = rn.nextInt(52);
             tempInsert.add(deck.get(tempValue));
-            deck.remove(52);
+            deck.remove(tempValue);
             buildStuff.add(i,tempInsert);
         }
+
         for(int i = 0; i <= 24; i++){
             int tempValue = rn.nextInt(52);
             talonStak.add(deck.get(tempValue));
@@ -55,6 +56,4 @@ public class Logic {
         }
 
     }
-
-
 }
