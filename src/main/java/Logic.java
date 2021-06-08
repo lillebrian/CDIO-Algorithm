@@ -43,6 +43,7 @@ public class Logic {
             LinkedList<Kort> tempInsert = new LinkedList<>();
             int tempValue = rn.nextInt(52);
             tempInsert.add(deck.get(tempValue));
+            deck.remove(deck.get(tempValue));
             buildStuff.add(i,tempInsert);
         }
         System.out.println(buildStuff.size());
