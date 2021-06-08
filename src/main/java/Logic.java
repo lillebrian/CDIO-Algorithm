@@ -1,5 +1,3 @@
-import com.sun.org.glassfish.gmbal.ParameterNames;
-
 import java.util.*;
 
 public class Logic {
@@ -7,7 +5,7 @@ public class Logic {
     public Logic() {
         initialisereKort();
         simulateGame(true);
-
+        algo();
     }
 
     ArrayList<Kort> deck = new ArrayList<>(52);
@@ -35,17 +33,28 @@ public class Logic {
     ArrayList<Kort> suitStak = new ArrayList<>();
     ArrayList<LinkedList<Kort>> buildStuff= new ArrayList<>();
     ArrayList<Kort> talon = new ArrayList<>();
+    ArrayList<Kort> splitInBlack = new ArrayList<>();
+    ArrayList<Kort> splitInRed = new ArrayList<>();
 
     Stack<String> test = new Stack<>();
 
-
     public void algo() {
-
 
     }
 
+    public void splitDeck(){
+        for (int i = 0; i < deck.size(); i++) {
+            if(deck.get(i).getType().equals("S") || deck.get(i).getType().equals("C")){
+                splitInBlack.add(deck.get(i));
+            } else {
+                splitInRed.add(deck.get(i));
+            }
+        }
 
-
+        for (int i = 0; i < splitInRed.size(); i++) {
+            System.out.println(splitInRed.get(i).getType() + splitInRed.get(i).getNumber());
+        }
+    }
 
     /* SIMULATING RANDOM CARDS FOR TESTING PURPOSES */
     public void simulateGame(boolean wantRandom) {
