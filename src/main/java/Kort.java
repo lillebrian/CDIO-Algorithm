@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 class Kort {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+
 
     // Doubly linked list to keep track of build stacks
     private Kort next;
@@ -13,7 +17,7 @@ class Kort {
 
     String number;
     String type;
-    ArrayList<String> typer = new ArrayList<>(Arrays.asList("C", "D", "H", "S"));
+    ArrayList<String> typer = new ArrayList<>(Arrays.asList("\u001B[30m♣️️\u001B[0m", "\u001B[31m♦️\u001B[0m️", "\u001B[31m♥️️\u001B[0m", "\u001B[30m♠️\u001B[0m️"));
     ArrayList<String> numre = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","J","D","K"));
 
     public Kort(int type, int number) {
