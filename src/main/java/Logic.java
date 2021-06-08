@@ -1,10 +1,9 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 public class Logic {
     public Logic() {
         initialisereKort();
+        algo();
     }
 
     ArrayList<Kort> deck = new ArrayList<>(52);
@@ -28,15 +27,31 @@ public class Logic {
 
     /*********** ALGORITME ARBEJDE ***********/
     // Build stak a
-    ArrayList<LinkedList<String>> buildStak = new ArrayList<>();
+
+    LinkedList<String> buildStak = new LinkedList<String>();
     ArrayList<String> bunken = new ArrayList<>();
-    ArrayList<ArrayList<String>> suitStak = new ArrayList<>();
+    ArrayList<String> suitStak = new ArrayList<>();
+    ArrayList<LinkedList<Kort>> buildStuff= new ArrayList<LinkedList<Kort>>();
 
     Stack<String> test = new Stack<>();
 
     public void algo() {
-        LinkedList<String> temp = new LinkedList<>();
-        buildStak.add(temp);
+
+        Random rn = new Random();
+
+        LinkedList<Kort> tempInsert = new LinkedList<>();
+        for (int i = 0; i < 7; i++) {
+            tempInsert.add(deck.get(rn.nextInt(52)));
+        }
+        for (int i = 0; i < tempInsert.size(); i++) {
+            System.out.println(tempInsert.get(i).getType() + tempInsert.get(i).getNumber());
+        }
+
+
+
+        System.out.println(buildStuff.get(0).size());
 
     }
+
+
 }
