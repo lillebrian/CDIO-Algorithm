@@ -48,7 +48,6 @@ public class Logic {
 
 
     /* SIMULATING RANDOM CARDS FOR TESTING PURPOSES */
-    /* @author*/
     public void simulateGame(boolean wantRandom) {
         Random rn = new Random();
         if (wantRandom) {
