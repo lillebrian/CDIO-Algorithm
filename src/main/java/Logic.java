@@ -31,7 +31,8 @@ public class Logic {
     LinkedList<String> buildStak = new LinkedList<String>();
     ArrayList<String> bunken = new ArrayList<>();
     ArrayList<String> suitStak = new ArrayList<>();
-    ArrayList<LinkedList<Kort>> buildStuff= new ArrayList<LinkedList<Kort>>();
+    ArrayList<LinkedList<Kort>> buildStuff= new ArrayList<>();
+    ArrayList<Kort> talonStak = new ArrayList<>();
 
     Stack<String> test = new Stack<>();
 
@@ -43,19 +44,15 @@ public class Logic {
             LinkedList<Kort> tempInsert = new LinkedList<>();
             int tempValue = rn.nextInt(52);
             tempInsert.add(deck.get(tempValue));
-            deck.remove(deck.get(tempValue));
+            deck.remove(52);
             buildStuff.add(i,tempInsert);
         }
-        System.out.println(buildStuff.size());
+        for(int i = 0; i <= 24; i++){
+            int tempValue = rn.nextInt(52);
+            talonStak.add(deck.get(tempValue));
+            deck.remove(52);
 
-
-        for (int i = 0; i < buildStuff.size(); i++) {
-            System.out.println(buildStuff.get(i).get(0).getType() + buildStuff.get(i).get(0).getNumber());
         }
-
-
-
-        System.out.println(buildStuff.get(0).size());
 
     }
 
