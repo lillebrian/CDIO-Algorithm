@@ -28,15 +28,21 @@ public class Logic {
     /*********** ALGORITME ARBEJDE ***********/
     // Build stak a
 
-    LinkedList<String> buildStak = new LinkedList<String>();
-    ArrayList<String> bunken = new ArrayList<>();
-    ArrayList<String> suitStak = new ArrayList<>();
+    ArrayList<Kort> suitStak = new ArrayList<>();
     ArrayList<LinkedList<Kort>> buildStuff= new ArrayList<>();
-    ArrayList<Kort> talonStak = new ArrayList<>();
+    ArrayList<Kort> talon = new ArrayList<>();
 
     Stack<String> test = new Stack<>();
 
     public void algo() {
+
+
+
+
+
+    }
+
+    public void simulateGame() {
 
         Random rn = new Random();
 
@@ -48,12 +54,12 @@ public class Logic {
             buildStuff.add(i,tempInsert);
         }
 
-        for(int i = 0; i <= 24; i++){
+        for(int i = 0; i < 24; i++){
             int tempValue = rn.nextInt(52);
-            talonStak.add(deck.get(tempValue));
-            deck.remove(52);
-
+            talon.add(deck.get(tempValue));
+            deck.remove(tempValue);
         }
 
     }
+
 }
