@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Stack;
 
 class Kort {
-
+    public static final String RESET = "\u001B[0m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String RED = "\u001B[31m";
     // Doubly linked list to keep track of build stacks
     private Kort next;
     private Kort last;
@@ -13,12 +13,22 @@ class Kort {
 
     String number;
     String type;
+    String typeIcon;
+    ArrayList<String> suits = new ArrayList<>(Arrays.asList("\u001B[30m♣️️\u001B[0m", "\u001B[31m♦️\u001B[0m", "\u001B[31m♥️️\u001B[0m", "\u001B[30m♠️️\u001B[0m"));
     ArrayList<String> typer = new ArrayList<>(Arrays.asList("C", "D", "H", "S"));
     ArrayList<String> numre = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","11","12","13"));
 
     public Kort(int type, int number) {
+        this.typeIcon = suits.get(type);
         this.type = typer.get(type);
         this.number = numre.get(number);
+
+    }
+
+
+    public String toString() {
+
+        return typeIcon+number;
     }
 
     public String getNumber() {
@@ -31,6 +41,10 @@ class Kort {
 
     public String getType() {
         return type;
+    }
+
+    public String getTypeIcon() {
+        return typeIcon;
     }
 
     public void setType(String type) {
