@@ -11,32 +11,41 @@ class Kort {
 
 
 
-    String number;
-    String type;
-    String typeIcon;
+    private int number;
+    private EnumColor color;
+    private String type;
+    private String typeIcon;
     ArrayList<String> suits = new ArrayList<>(Arrays.asList("\u001B[30m♣️️\u001B[0m", "\u001B[31m♦️\u001B[0m", "\u001B[31m♥️️\u001B[0m", "\u001B[30m♠️️\u001B[0m"));
     ArrayList<String> typer = new ArrayList<>(Arrays.asList("C", "D", "H", "S"));
-    ArrayList<String> numre = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","11","12","13"));
+//    ArrayList<String> numre = new ArrayList<>(Arrays.asList("1","2","3","4","5","6","7","8","9","10","11","12","13"));
 
     public Kort(int type, int number) {
         this.typeIcon = suits.get(type);
         this.type = typer.get(type);
-        this.number = numre.get(number);
+        this.number = number;
 
+        if (this.type.equals("C") || this.type.equals("S")) {
+            color = EnumColor.BLACK;
+        } else {
+            color = EnumColor.RED;
+        }
     }
 
 
     public String toString() {
-
         return typeIcon+number;
     }
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
+    }
+
+    public EnumColor getColor() {
+        return color;
     }
 
     public String getType() {

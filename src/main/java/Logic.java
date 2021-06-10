@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Logic {
@@ -16,7 +17,7 @@ public class Logic {
     public void initialisereKort() {
         int i = 0;
         for (int type = 0; type <= 3; type++) {
-            for (int nummer = 0; nummer < 13; nummer++) {
+            for (int nummer = 1; nummer <= 13; nummer++) {
                 deck.add(i, new Kort(type, nummer));
             }
         }
@@ -25,7 +26,7 @@ public class Logic {
 
     public void printDeck() {
         for (int i = 0; i < deck.size(); i++) {
-            System.out.println("Kortet: " + deck.get(i).typeIcon + " " + deck.get(i).number);
+            System.out.println("Kortet: " + deck.get(i).getTypeIcon() + " " + deck.get(i).getNumber());
         }
     }
 
@@ -34,7 +35,8 @@ public class Logic {
 
     /*********** ALGORITME ARBEJDE ***********/
 
-    ArrayList<Kort> suitStak = new ArrayList<>();
+
+    ArrayList<LinkedList<Kort>> suitStak = new ArrayList<>();
     ArrayList<LinkedList<Kort>> buildStuff = new ArrayList<>();
     ArrayList<Kort> talon = new ArrayList<>();
     ArrayList<Kort> splitInBlack = new ArrayList<>();
@@ -49,24 +51,27 @@ public class Logic {
 
 
         /* Method for choosing the move with the highest value (points) */
-        int value = 0;
-        Moves correct = null;
+//        int value = 0;
+//        Moves correct = null;
+//        for (Moves m : legalMoves) {
+//            if (correct == null) {
+//                correct = m;
+//            }
+//            if (m.valueOfMoves < value) {
+////                value = m.valueOfMoves;
+//                correct = m;
+//            }
+//        }
+//        try {
+//            System.out.println(nextMove(correct));
+//        } catch (Exception e) {
+//            System.out.println("error in try catch: " + e);
+//        }
+        /* TEST PRINT*/
         for (Moves m : legalMoves) {
-            if (correct == null) {
-                correct = m;
-            }
-            if (m.valueOfMoves < value) {
-//                value = m.valueOfMoves;
-                correct = m;
-            }
+            System.out.println("\nPRINTING LEGAL MOVES");
+            System.out.println(nextMove(m));
         }
-
-        try {
-            System.out.println(nextMove(correct));
-        } catch (Exception e) {
-            System.out.println("error in try catch: " + e);
-        }
-
     }
 
 
@@ -74,42 +79,108 @@ public class Logic {
         /* TESTING FOR ONE ITERATION ONLY ATM SO CLEARING BEFORE ITERATING */
         legalMoves.clear();
 
+        /*
+        *  1 : CAN CARD BE MOVED TO SUIT STACK?
+        *  2 : CAN CARD BE MOVED TO BUILD STACK?
+        *  3 : CAN TALON CARD BE MOVED TO CARD?
+        *
+        * RUN FOR DEPTH OF MOVES AFTER
+        */
+
+
+        /* NOT COMPLETE. LOOP USED FOR MOVE DETECTION */
+        System.out.println("PRINTING SUIT STACKS\n" + suitStak);
+        for (int i = 0; i < 7; i++) {
+            Kort single = BuildStacks.get(i).getFirst();
+            Kort blok = BuildStacks.get(i).getLast();
+            isMovableToSuit(BuildStacks, single);
+            searchTalon(Talon, single);
+        }
+
+
+
+
+
+
+
         for (int i = 0; i < 7; i++) {
             //Iterate to compare all other values with the value at i
+
             for (int j = 0; j < buildStuff.size(); j++) {
                 //Cards we use to compare with each other
                 Kort comparisonWith = buildStuff.get(i).get(0);
                 Kort compareTo = buildStuff.get(j).get(0);
 
                 //First subtract the 2 values from each other to check if the value is 1 since then it's a legal move
-                int compareValues = Integer.parseInt(comparisonWith.getNumber()) - Integer.parseInt(compareTo.getNumber());
+                int compareValues = comparisonWith.getNumber() - compareTo.getNumber();
 
+                /* DOING THE SAME FOR THE TALON */
+
+
+
+
+                /* BUILD STACKS */
                 //We gotta make sure that the colors aren't the same so that we have Heart
                 if (!containsName(splitInRed, comparisonWith.getType()) && containsName(splitInRed, compareTo.getType()) && compareValues == 1) {
-                    System.out.println("Hej jan " + comparisonWith.getTypeIcon() + comparisonWith.getNumber() + " og den anden " + compareTo.getTypeIcon() + compareTo.getNumber());
+                    System.out.println("VALID MOVE IN BUILDSTACK: " + comparisonWith.getTypeIcon() + comparisonWith.getNumber() + " WITH " + compareTo.getTypeIcon() + compareTo.getNumber());
 
                     /* ADDS THE MOVE FOR LATER CHOOSING */
                     Moves newMove = new Moves();
                     newMove.addLegalMove(comparisonWith, compareTo, 1);
                     legalMoves.add(newMove);
+
                 }
+
+                /* BUILD STACKS */
                 if (containsName(splitInRed, comparisonWith.getType()) && !containsName(splitInRed, compareTo.getType()) && compareValues == 1) {
-                    System.out.println("Hej jan2 " + comparisonWith.getTypeIcon() + comparisonWith.getNumber() + " og den anden " + compareTo.getTypeIcon() + compareTo.getNumber());
+                    System.out.println("VALID MOVE IN BUILDSTACK: " + comparisonWith.getTypeIcon() + comparisonWith.getNumber() + " WITH " + compareTo.getTypeIcon() + compareTo.getNumber());
 
                     /* ADDS THE MOVE FOR LATER CHOOSING */
                     Moves newMove = new Moves();
                     newMove.addLegalMove(comparisonWith, compareTo, 1);
                     legalMoves.add(newMove);
-//                    legalMoves.add(new Moves());
-//                    legalMoves.get(j).addLegalMove(comparisonWith, compareTo, 1);
                 }
-
-                
-
 
             }
         }
     }
+
+
+
+    public void isMovableToSuit (ArrayList<LinkedList<Kort>> suits, Kort compare) {
+        for (LinkedList<Kort> k : suits) {
+            if (compare.getNumber() - k.getLast().getNumber() == 1 && compare.getType().equals(k.getLast().getType())){
+                System.out.println(compare + " Is movable to suit");
+                /* DO FOR DEPTH LATER */
+                Moves newMove = new Moves();
+                newMove.addLegalMove(compare, k.getLast(), 10);
+                legalMoves.add(newMove);
+            }
+        }
+    }
+
+    /* USED TO DETERMINE IF A CARD IN THE TALON CAN BE MOVED TO A STACK */
+    public void searchTalon (ArrayList<Kort> talon, Kort compare) {
+        Kort talonPos;
+        for (int i = 0; i < talon.size(); i++) {
+            talonPos = talon.get(i);
+            if(compare.getNumber() - talonPos.getNumber() == 1  &&  compare.getColor() != talonPos.getColor()) {
+                System.out.println("test af search talon \n VALID MOVE IN TALON: " + talonPos + " -> " + compare);
+                Moves newMove = new Moves();
+                newMove.addLegalMove(compare, talonPos, 1);
+                legalMoves.add(newMove);
+            }
+            isMovableToSuit(suitStak, compare);
+        }
+    }
+
+    public void searchBuildStacks (ArrayList<LinkedList<Kort>> bs, Kort compare) {
+
+
+
+
+    }
+
 
 
     /* RETURN METHOD FOR WHAT THE NEXT MOVE IS IN STRING FORMAT (USED FOR VISUAL REPRESENTATION FOR THE APP) */
@@ -165,10 +236,12 @@ public class Logic {
             System.out.println("Alt i buildStuff " + k.get(0).getTypeIcon() + "" + k.get(0).getNumber());
 
         }
-
     }
 
 
+
+    public void notSameColor(Kort compare, Kort compareTo) {
+    }
 
 
     public boolean containsName(final List<Kort> list, final String name){

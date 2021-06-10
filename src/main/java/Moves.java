@@ -4,8 +4,9 @@ import java.util.LinkedList;
 public class Moves {
     int valueOfMoves = 0;
 //    ArrayList<Kort> LegalMoves = new ArrayList<>();
+    /* USED FOR DEPTH SEARCH AND KEEPING TRACK OF MOVES WITHIN A MOVE*/
     LinkedList<Kort> LegalMoves = new LinkedList<>();
-    String træk = "H8 -> S9";
+
 
     public Moves () {
 
